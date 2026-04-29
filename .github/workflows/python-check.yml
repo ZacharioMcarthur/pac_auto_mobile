@@ -28,8 +28,8 @@ jobs:
 
       # Étape D : Vérification de la documentation
       - name: Run doc check
-        run: python check_docs.py
+        run: python check_docs.py  # Garde ce chemin si ce fichier est à la racine
 
-      # Étape E : Vérification de la structure API (Nouveau !)
+      # Étape E : Vérification de la structure API (Mise à jour du chemin !)
       - name: Run API check
-        run: python check_api.py
+        run: python scripts/check_api.py
