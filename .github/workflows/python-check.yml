@@ -1,0 +1,25 @@
+# 1. Le nom de mon automatisation
+name: Python Quality Check
+
+# 2. Le déclencheur (L'événement qui réveille le robot)
+on: [push]  # Ici, le robot s'active à chaque fois que tu fais un "git push"
+
+# 3. La liste des tâches (Jobs)
+jobs:
+  build:
+    # On demande à GitHub de nous prêter un ordinateur virtuel (Ubuntu)
+    runs-on: ubuntu-latest
+
+    steps:
+      # Étape A : Le robot télécharge mon code sur cet ordinateur virtuel
+      - uses: actions/checkout@v3
+
+      # Étape B : Il installe Python (comme je l'ais fait sur ton PC)
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      # Étape C : Il exécute mon script magique
+      - name: Run script
+        run: python check_docs.py
