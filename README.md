@@ -123,6 +123,20 @@ Le fichier se trouve ensuite dans :
 build/app/outputs/flutter-apk/app-release.apk
 ```
 
+## Maintenance & Qualité (Automatisation Python)
+
+Le projet intègre des outils de vérification automatique pour garantir la qualité du code et de la documentation.
+
+### Scripts utilitaires
+- `check_docs.py` : Scanne le projet pour vérifier la présence de commentaires et de documentation dans les fichiers clés.
+- `.github/workflows/python-check.yml` : Automatisation GitHub Actions qui exécute les tests à chaque `push`.
+
+### Exécuter les vérifications localement
+Si vous avez Python installé, vous pouvez lancer manuellement le script de vérification :
+
+```powershell
+python check_docs.py
+
 ## Remarques
 
 - Les tokens sont stockés localement dans `SharedPreferences` sous la clé `token`

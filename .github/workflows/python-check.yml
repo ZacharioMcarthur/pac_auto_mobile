@@ -1,26 +1,35 @@
 # 1. Le nom de mon automatisation
-name: Python Quality Check
+name: PAC Project Quality Check
 
-# 2. Le déclencheur (L'événement qui réveille le robot)
-on: [push]  # Ici, le robot s'active à chaque fois que tu fais un "git push"
+# 2. Le déclencheur
+on: [push]
 
-# 3. La liste des tâches (Jobs)
+# 3. La liste des tâches
 jobs:
   build:
-    # On demande à GitHub de nous prêter un ordinateur virtuel (Ubuntu)
     runs-on: ubuntu-latest
 
     steps:
-      # Étape A : Le robot télécharge mon code sur cet ordinateur virtuel
+      # Étape A : Téléchargement du code
       - uses: actions/checkout@v3
 
-      # Étape B : Il installe Python (comme je l'ais fait sur ton PC)
+      # Étape B : Installation de Python
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
 
-      # Étape C : Il exécute mon script magique
-      - name: Run script
+      # Étape C : Installation des dépendances (Nouveau !)
+      # Le robot a besoin de 'requests' pour faire tourner check_api.py
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Étape D : Vérification de la documentation
+      - name: Run doc check
         run: python check_docs.py
-        
+
+      # Étape E : Vérification de la structure API (Nouveau !)
+      - name: Run API check
+        run: python check_api.py

@@ -1,43 +1,59 @@
-# Miscellaneous
+# --- GENERAL / IDE ---
 *.class
 *.log
 *.pyc
 *.swp
 .DS_Store
-.atom/
-.buildlog/
 .history
-.svn/
-migrate_working_dir/
-
-# IntelliJ related
+.idea/
 *.iml
 *.ipr
 *.iws
-.idea/
+.vscode/
+#les fichiers temporaires de Windows que Git a essayé d'aspirer
+NTUSER.DAT*
+ntuser.dat*
+*.regtrans-ms
+*.blf
 
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
-
-# Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
+# --- FLUTTER / DART ---
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
 .pub-cache/
 .pub/
-/build/
-
-# Symbolication related
-app.*.symbols
-
-# Obfuscation related
-app.*.map.json
-
-# Android Studio will place build artifacts here
+build/
+**/doc/api/
 /android/app/debug
 /android/app/profile
 /android/app/release
+app.*.symbols
+app.*.map.json
+
+# --- PYTHON ---
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+# fichier pour les dépendances
+requirements.txt
+
+# --- LARAVEL & BACKEND (Sécurité) ---
+.env
+.env.backup
+.env.production
+vendor/
+node_modules/
+public/storage
+storage/*.key
+/storage/framework/cache/data/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+
+# --- FICHIERS MÉDIAS / DOCS ---
+*.mp4
+*.pdf
+*.xlsx
+*.docx
