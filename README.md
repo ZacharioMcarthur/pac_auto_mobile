@@ -131,8 +131,6 @@ build/app/outputs/flutter-apk/app-release.apk
 
 ## Auteur
 
-Initié par : [HOUENOUKPO Ulrich](https://github.com/hnk229) en 2024
+- Initié par : [HOUENOUKPO Ulrich](https://github.com/hnk229) en 2024
 
-```powershell
-Développé par : [NASCIMENTO Zachario](https://github.com/ZacharioMcarthur) en 2026
-```
+- Mise à jour et développement: [NASCIMENTO Zachario](https://github.com/ZacharioMcarthur) en 2026

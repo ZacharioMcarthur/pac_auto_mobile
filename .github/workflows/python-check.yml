@@ -23,3 +23,4 @@ jobs:
       # Étape C : Il exécute mon script magique
       - name: Run script
         run: python check_docs.py
+        
