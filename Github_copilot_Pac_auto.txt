@@ -127,8 +127,8 @@ php artisan serve --host=0.0.0.0 --port=8000
 # Testez login (Postman/Insomnia)
 POST http://localhost:8000/api/login
 {
-  "email": "admin@pac.com",
-  "password": "votre_mot_de_passe"
+  "email": "nascimentozachario@gmail.com",
+  "password": "password123"
 }
 
 Voulez-vous que je crée immédiatement les fichiers PHP corrigés pour que vous les copiiez-colliez directement ?
@@ -494,7 +494,7 @@ POST http://localhost:8000/api/login
 Content-Type: application/json
 
 {
-  "email": "user@example.com",
+  "email": "nascimentozachario@gmail.com",
   "password": "password123"
 }
 
@@ -905,7 +905,7 @@ class AuthController extends Controller
      * Authentification utilisateur
      * 
      * POST /api/login
-     * Body: { "email": "user@example.com", "password": "password" }
+     * Body: { "email": "nascimentozachario@gmail.com", "password": "password" }
      * 
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
@@ -1248,7 +1248,7 @@ class AuthController extends Controller
      * Authentification utilisateur
      * 
      * POST /api/login
-     * Body: { "email": "user@example.com", "password": "password" }
+     * Body: { "email": "nascimentozachario@gmail.com", "password": "password" }
      * 
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse

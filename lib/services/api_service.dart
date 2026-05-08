@@ -3,6 +3,7 @@ import 'package:courses_pac/config/api_config.dart';
 import 'dart:convert';
 
 class ApiService {
+
   /// Effectue une requête GET
   static Future<http.Response> get(String endpoint) async {
     try {

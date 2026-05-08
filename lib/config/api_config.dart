@@ -1,18 +1,31 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiConfig {
+  // Adresse pour Chrome (Web) en local
+  static const String _baseUrlLocal = 'http://127.0.0.1:8000/api';
+  
+  // Adresse pour l'émulateur Android (pointe vers le localhost du PC)
   static const String _baseUrlEmulator = 'http://10.0.2.2:8000/api';
+  
+  // L'adresse IP Wi-Fi actuelle (Utile pour tester sur un vrai téléphone)
   static const String _baseUrlWifi = 'http://10.35.101.88:8000/api';
 
+  // --- CONFIGURATION ACTIVE ---
+  // Change cette valeur selon ton support de test
   static const bool isEmulator = false;
+  static const bool isWeb = true; // Ajout pour faciliter le switch vers Chrome
 
-  static String get baseUrl => isEmulator ? _baseUrlEmulator : _baseUrlWifi;
+  static String get baseUrl {
+    if (isWeb) return _baseUrlLocal;
+    return isEmulator ? _baseUrlEmulator : _baseUrlWifi;
+  }
 
   static const Map<String, String> headers = {
     'Content-Type': 'application/json; charset=UTF-8',
     'Accept': 'application/json',
   };
 
+  /// Récupère les headers avec le Token de sécurité Sanctum
   static Future<Map<String, String>> getAuthHeaders() async {
     final prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');

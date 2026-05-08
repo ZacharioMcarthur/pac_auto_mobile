@@ -1,14 +1,19 @@
 import 'dart:convert';
 import 'package:courses_pac/config/api_config.dart';
-import 'package:http/http.dart' as http; // HTTP package
+import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-// Function to get user profile
 Future<Map<String, dynamic>?> getUserProfile() async {
   final url = Uri.parse('${ApiConfig.baseUrl}${ApiConfig.userProfileRoute}');
 
   try {
     final headers = await ApiConfig.getAuthHeaders();
+    
+    // Vérification si le token existe avant d'envoyer
+    if (!headers.containsKey('Authorization')) {
+      print("Erreur : Aucun token trouvé dans les préférences.");
+      return null;
+    }
 
     final response = await http.get(
       url,
@@ -17,20 +22,16 @@ Future<Map<String, dynamic>?> getUserProfile() async {
 
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
-      print("User Profile: ${jsonResponse['data']}");
-      // Retourner les données du profil utilisateur
-      return jsonResponse['data'];
-      // //  Après vérification, retourner à la page d'accueil
-      //   Navigator.pushReplacement(
-      //     context,
-      //     MaterialPageRoute(builder: (context) => HomePage()), // HomePage est la page d'accueil
-      //   );
+      
+      // On retourne le contenu de 'data' qui contient l'objet User
+      print("Profil récupéré avec succès.");
+      return jsonResponse['data'] as Map<String, dynamic>?;
     } else {
-      print("Failed to get profile. Status code: ${response.statusCode}");
+      print("Échec profil. Code: ${response.statusCode}, Message: ${response.body}");
       return null;
     }
   } catch (e) {
-    print("Error getting profile: $e");
+    print("Erreur lors de la récupération du profil : $e");
     return null;
   }
 }

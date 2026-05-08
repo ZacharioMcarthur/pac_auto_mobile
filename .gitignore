@@ -10,6 +10,7 @@
 *.ipr
 *.iws
 .vscode/
+.git/
 #les fichiers temporaires de Windows que Git a essayé d'aspirer
 NTUSER.DAT*
 ntuser.dat*
