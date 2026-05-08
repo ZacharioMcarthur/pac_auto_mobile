@@ -142,7 +142,7 @@ python check_docs.py
 - Les tokens sont stockés localement dans `SharedPreferences` sous la clé `token`
 - Assurez-vous que le backend Laravel est démarré avant d'exécuter l'application Flutter
 - Si votre API ne répond pas, vérifiez l'URL dans `lib/config/api_config.dart`
-
+```
 ## Auteur
 
 - Initié par : [HOUENOUKPO Ulrich](https://github.com/hnk229) en 2024
