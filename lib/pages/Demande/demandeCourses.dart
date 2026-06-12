@@ -17,11 +17,8 @@ class _DemandeCoursesState extends State<DemandeCourses> {
     var screenSize = MediaQuery.of(context).size;
     var screenHeight = screenSize.height;
     var screenWidth = screenSize.width;
-      // Récupérer le thème actuel (clair ou sombre)
-    var brightness = Theme.of(context).brightness;
-    bool isDarkMode = brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor: isDarkMode ? darkColorScheme.shadow : lightColorScheme.onSecondary,
+      backgroundColor: lightColorScheme.onSecondary,
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         backgroundColor: lightColorScheme.primary,
@@ -30,7 +27,7 @@ class _DemandeCoursesState extends State<DemandeCourses> {
         title: const Text(
           "Demande Courses",
           style: TextStyle(
-            color: Colors.white,
+            color: Colors.black,
           ),
         ),
       ),

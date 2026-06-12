@@ -40,11 +40,21 @@ class _LoginState extends State<Login> {
     });
   }
 
-  sign(String email, String password) {
+  sign(String email, String password) async {
     setState(() {
       inLogin = true;
-      login(email, password, context);
     });
+    
+    final success = await login(email, password, context);
+    
+    if (!mounted) return;
+    setState(() {
+      inLogin = false;
+    });
+    
+    if (success) {
+      getUserProfile();
+    }
   }
 
   @override
@@ -68,6 +78,8 @@ class _LoginState extends State<Login> {
             flex: 1,
             child: Image(
               image: AssetImage("assets/images/logo.png"),
+              width: 150,
+              height: 150,
             ),
           ),
           SizedBox(

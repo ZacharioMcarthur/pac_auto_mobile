@@ -7,6 +7,7 @@ import 'package:courses_pac/pages/Courses/detailCourses.dart';
 import 'package:courses_pac/pages/widgets/Dropdown.dart';
 import 'package:courses_pac/pages/widgets/listview.dart';
 import 'package:courses_pac/theme/theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CoursesEnCours extends StatefulWidget {
   const CoursesEnCours({super.key});
@@ -30,8 +31,11 @@ class _CoursesEnCoursState extends State<CoursesEnCours> {
   /// Récupère la liste de toutes les courses (En cours, Terminées, Validées)
   Future<void> getCourses() async {
     try {
-      // Note: Remplacer '5/chauffeur' par les variables réelles de session
-      final response = await ApiService.get("${ApiConfig.demandeListRoute}/5/chauffeur");
+      final prefs = await SharedPreferences.getInstance();
+      final userId = prefs.getInt('user_id') ?? 0;
+      final userRole = prefs.getString('user_role') ?? 'user';
+      
+      final response = await ApiService.get("${ApiConfig.demandeListRoute}/$userId/$userRole");
 
       if (response.statusCode == 200) {
         final List<dynamic> allData = jsonDecode(response.body)['data'];

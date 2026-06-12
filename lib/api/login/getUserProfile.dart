@@ -22,10 +22,19 @@ Future<Map<String, dynamic>?> getUserProfile() async {
 
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
+      final userData = jsonResponse['data'] as Map<String, dynamic>?;
       
-      // On retourne le contenu de 'data' qui contient l'objet User
+      // Sauvegarder les données utilisateur dans SharedPreferences
+      if (userData != null) {
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setInt('user_id', userData['id'] ?? 0);
+        await prefs.setString('user_role', userData['role']?['libelle'] ?? 'user');
+        await prefs.setString('user_name', userData['nom'] ?? '');
+        await prefs.setString('user_prenom', userData['prenom'] ?? '');
+      }
+      
       print("Profil récupéré avec succès.");
-      return jsonResponse['data'] as Map<String, dynamic>?;
+      return userData;
     } else {
       print("Échec profil. Code: ${response.statusCode}, Message: ${response.body}");
       return null;

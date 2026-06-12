@@ -2,12 +2,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiConfig {
   // Adresses locales
-  static const String _baseUrlLocal = 'http://127.0.0.1:8000/api';
-  static const String _baseUrlEmulator = 'http://10.0.2.2:8000/api';
-  static const String _baseUrlWifi = 'http://10.35.101.88:8000/api';
+  static const String _baseUrlLocal = 'http://127.0.0.1:8000/api/';
+  static const String _baseUrlEmulator = 'http://10.0.2.2:8000/api/';
+  static const String _baseUrlWifi = 'http://10.35.101.88:8000/api/';
 
   // --- CONFIGURATION ACTIVE ---
-  static const bool isWeb = true; 
+  static const bool isWeb = false; 
   static const bool isEmulator = false;
 
   // Utilisation du mot-clé "tuka" pour basculer vers la production si besoin
@@ -59,4 +59,4 @@ class ApiConfig {
   // Affectations
   static const String affectationListRoute = 'affectation/list';
   static const String affectationSaveRoute = 'affectation/save';
-}y
+}
