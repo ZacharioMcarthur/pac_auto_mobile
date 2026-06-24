@@ -1,39 +1,31 @@
 import 'dart:convert';
+
 import 'package:courses_pac/config/api_config.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart'; // HTTP package
 
-// Function to get user profile
-Future<List<dynamic>?> getCoursesUsers(int userId) async {
-  final url = Uri.parse('${ApiConfig.baseUrl}/demande/$userId');
+Future<List<dynamic>?> getCoursesUsers(int userId, {String? role}) async {
+  final userRole = role ?? ApiConfig.defaultRole;
+  final url = Uri.parse(
+    ApiConfig.url('${ApiConfig.demandeListRoute}/$userId/$userRole'),
+  );
 
   try {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? token = prefs.getString('token');
-
-    if (token == null) {
-      print("No token found, please log in.");
+    final headers = await ApiConfig.getAuthHeaders();
+    if (!headers.containsKey('Authorization')) {
       return null;
     }
 
-    final response = await http.get(
-      url,
-      headers: {
-        'Authorization': 'Bearer $token',
-      }
-    );
+    final response = await http
+        .get(url, headers: headers)
+        .timeout(const Duration(seconds: 15));
 
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
-      print("liste des demandes: ${jsonResponse['data']}");
-      // Retourner les données dans la table motif-demande
-      return jsonResponse['data'];
-    } else {
-      print("Failed to get demandes. Status code: ${response.statusCode}");
-      return null;
+      return jsonResponse['data'] as List<dynamic>?;
     }
+
+    return null;
   } catch (e) {
-    print("Erreur lors de la lecture des demandes : $e");
     return null;
   }
 }

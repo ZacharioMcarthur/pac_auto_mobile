@@ -1,20 +1,30 @@
+import 'dart:io' show Platform;
+
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiConfig {
-  // Adresses locales
   static const String _baseUrlLocal = 'http://127.0.0.1:8000/api/';
   static const String _baseUrlEmulator = 'http://10.0.2.2:8000/api/';
   static const String _baseUrlWifi = 'http://10.35.101.88:8000/api/';
 
-  // --- CONFIGURATION ACTIVE ---
-  static const bool isWeb = false; 
-  static const bool isEmulator = false;
+  static const bool isEmulator = true;
+  static const String defaultRole = 'AGENT';
 
-  // Utilisation du mot-clé "tuka" pour basculer vers la production si besoin
   static String get baseUrl {
-    if (isWeb) return _baseUrlLocal;
-    return isEmulator ? _baseUrlEmulator : _baseUrlWifi;
+    if (kIsWeb) return _baseUrlLocal;
+    if (!kIsWeb && Platform.isAndroid) {
+      return isEmulator ? _baseUrlEmulator : _baseUrlWifi;
+    }
+    if (!kIsWeb &&
+        (Platform.isWindows || Platform.isMacOS || Platform.isLinux)) {
+      return _baseUrlLocal;
+    }
+    return _baseUrlWifi;
   }
+
+  static String url(String route) =>
+      '$baseUrl${route.startsWith('/') ? route.substring(1) : route}';
 
   static const Map<String, String> headers = {
     'Content-Type': 'application/json; charset=UTF-8',
@@ -31,32 +41,53 @@ class ApiConfig {
     };
   }
 
-  // --- ROUTES (Retrait des "/" initiaux pour éviter les doubles slashes) ---
-  // Authentification & Profil
+  static Future<int?> getCurrentUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getInt('user_id');
+  }
+
+  static Future<String> getCurrentUserRole() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('user_role') ?? defaultRole;
+  }
+
+  static Future<void> saveUserSession({
+    required int userId,
+    String? role,
+  }) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('user_id', userId);
+    if (role != null) {
+      await prefs.setString('user_role', role);
+    }
+  }
+
   static const String loginRoute = 'login';
   static const String logoutRoute = 'logout';
   static const String userProfileRoute = 'auth/profile';
 
-  // Utilisateurs
   static const String userAllRoute = 'user/all';
-  static const String userByIdRoute = 'user/get'; 
+  static const String userByIdRoute = 'user/get';
+  static const String userChangePasswordRoute = 'user/changePassword';
 
-  // Véhicules
   static const String vehiculeListRoute = 'vehicule/list';
   static const String vehiculeTypesRoute = 'vehicule/type';
   static const String vehiculeByIdRoute = 'vehicule/get';
-  
-  // Demandes de courses
+
+  static const String motifListRoute = 'motif/list';
+  static const String motifByIdRoute = 'motif';
+
   static const String demandeSaveRoute = 'demande/save';
-  static const String demandeListRoute = 'demande/list'; 
+  static const String demandePourMoiRoute = 'demande/pourmoi';
+  static const String demandeListRoute = 'demande/list';
   static const String demandeGetRoute = 'demande/get';
   static const String demandeStartRoute = 'demande/start';
   static const String demandeStopRoute = 'demande/close';
   static const String demandeDeleteRoute = 'demande/delete';
   static const String demandeVerifyNoteRoute = 'demande/notation-check';
   static const String demandeEnCoursRoute = 'demande/en-cours';
+  static const String demandeEditRoute = 'demande/edit';
 
-  // Affectations
   static const String affectationListRoute = 'affectation/list';
   static const String affectationSaveRoute = 'affectation/save';
 }

@@ -125,7 +125,7 @@ class _ModifierCoursesState extends State<ModifierCourses> {
 
     // TODO: implement initState
     super.initState();
-    // Ajouter un listener pour déclacher la validation automatique
+    // Ajout d'un listener si nécessaire pour déclacher la validation automatique
     _lieuDepartController.addListener(() {
       // Si le formulaire est valide il s'actualise automatiquement
       _lieuDepart.currentState?.validate();
@@ -186,7 +186,7 @@ class _ModifierCoursesState extends State<ModifierCourses> {
     var screenWidth = screenSize.width;
 
     // Récupérer le thème actuel (clair ou sombre)
-    // var brightness = Theme.of(context).brightness;
+    var brightness = Theme.of(context).brightness;
     // bool isDarkMode = brightness == Brightness.dark;
     return Scaffold(
       appBar: AppBar(

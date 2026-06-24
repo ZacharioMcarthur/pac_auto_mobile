@@ -1,7 +1,6 @@
 import 'package:courses_pac/api/login/getUserProfile.dart';
 import 'package:courses_pac/pages/Demande/dashborad.dart';
 import 'package:courses_pac/pages/Demande/mesDemande.dart';
-import 'package:courses_pac/pages/Notification/notificationPage.dart';
 import 'package:courses_pac/pages/login/Secure/logout.dart';
 import 'package:courses_pac/pages/login/changerMdp.dart';
 import 'package:courses_pac/theme/theme.dart';
@@ -18,7 +17,7 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   int _currentIndex = 0;
-  int notificationCount = 0;
+  int notificationCount = 5;
   bool isSelected = false;
   setCurrentPage(int index) {
     setState(() {
@@ -29,7 +28,6 @@ class _HomepageState extends State<Homepage> {
   @override
   void initState() {
     userProfile();
-    notificationCount = 3; // Set initial notification count
     super.initState();
   }
 
@@ -74,16 +72,8 @@ class _HomepageState extends State<Homepage> {
           Stack(
             children: <Widget>[
               IconButton(
-                  onPressed: () async {
-                    final result = await Navigator.of(context).push(
-                        MaterialPageRoute(builder: (BuildContext context) {
-                      return const NotificationPage();
-                    }));
-                    if (result != null && result is int) {
-                      setState(() {
-                        notificationCount = result;
-                      });
-                    }
+                  onPressed: () {
+                    
                   },
                   icon: Icon(
                     Icons.notifications,
